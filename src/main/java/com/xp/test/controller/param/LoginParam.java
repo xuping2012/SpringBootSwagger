@@ -27,6 +27,13 @@ public class LoginParam {
 		@Pattern(regexp = "^\\d+$", message = "手机格式不正确")
 		@Length(min = 1, max = 20, message = "手机最长长度不能够大于20")
 		private String mobile;
+		
+		@ApiModelProperty(value = "密码", required = true)
+        @NotBlank(message = "密码不能为空")
+		//包含大写字母、小写字母、特殊符号、数字中的任意三项
+        @Pattern(regexp = "^(?![A-Za-z]+$)(?![A-Z0-9]+$)(?![a-z0-9]+$)(?![a-z\\W]+$)(?![A-Z\\W]+$)(?![0-9\\W]+$)[a-zA-Z0-9\\W]+$",message = "密码不正确")
+		@Length(min = 8, max = 16, message = "密码长度区间8-16")
+        private String passwd;
 
 	}
 	
