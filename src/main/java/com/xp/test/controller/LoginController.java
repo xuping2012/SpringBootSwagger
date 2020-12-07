@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
-import com.xp.test.cmmon.ReturnValue.Result;
-import com.xp.test.cmmon.ReturnValue.ReturnValue;
+import com.xp.test.common.ReturnValue.Result;
+import com.xp.test.common.ReturnValue.ReturnValue;
 import com.xp.test.common.utils.ValidatorUtils;
 import com.xp.test.controller.param.LoginParam;
 import com.xp.test.handler.LoginParamHandler;

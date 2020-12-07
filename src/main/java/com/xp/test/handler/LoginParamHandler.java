@@ -2,7 +2,7 @@ package com.xp.test.handler;
 
 import org.springframework.stereotype.Component;
 
-import com.xp.test.cmmon.ReturnValue.ReturnValue;
+import com.xp.test.common.ReturnValue.ReturnValue;
 import com.xp.test.common.constrant.ErrorInfoEnum;
 import com.xp.test.controller.param.LoginParam;
 

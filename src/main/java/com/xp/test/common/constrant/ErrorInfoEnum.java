@@ -3,7 +3,7 @@ package com.xp.test.common.constrant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import com.xp.test.cmmon.ReturnValue.ReturnValue;
+import com.xp.test.common.ReturnValue.ReturnValue;
 
 /**
  * 定义一些数据异常常量

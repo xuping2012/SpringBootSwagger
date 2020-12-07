@@ -1,0 +1,7 @@
+2020-12-07 22:53:30 928 [INFO ] RestClient:209 - start send post request
+2020-12-07 22:58:12 546 [INFO ] RestClient:209 - start send post request
+2020-12-07 22:59:20 029 [INFO ] RestClient:209 - start send post request
+2020-12-07 22:59:44 290 [INFO ] RestClient:209 - start send post request
+2020-12-07 23:07:22 098 [INFO ] PostApiTest:46 - 对象输出：com.xp.test.controller.param.Users@8e24743
+2020-12-07 23:07:22 218 [INFO ] PostApiTest:48 - 对象转字符串输出：{"job":"tester","name":"Anthony"}
+2020-12-07 23:07:24 131 [INFO ] RestClient:209 - start send post request
