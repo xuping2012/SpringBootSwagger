@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.xp.test.base.BaseServer;
 import com.xp.test.cmmon.ReturnValue.ReturnValue;
 import com.xp.test.controller.LoginController;
-import com.xp.test.param.LoginParam;
+import com.xp.test.controller.param.LoginParam;
 
 /**
  * Unit test for simple App.

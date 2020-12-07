@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +18,13 @@ import com.alibaba.fastjson.JSONArray;
 import com.xp.test.cmmon.ReturnValue.Result;
 import com.xp.test.cmmon.ReturnValue.ReturnValue;
 import com.xp.test.common.utils.ValidatorUtils;
-import com.xp.test.param.LoginParam;
+import com.xp.test.controller.param.LoginParam;
+import com.xp.test.handler.LoginParamHandler;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Resource;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -30,64 +34,81 @@ public class LoginController {
 	private static final Logger log = LogManager
 			.getLogger(LoginController.class.getName());
 
-	@RequestMapping(value = "/hello", method = RequestMethod.GET)
-	@ApiOperation(value = "hello，this my first api!!!")
-	public ReturnValue<?> hello() {
-		// System.out.println("执行成功");
-		log.info("这是我编写的第一个接口!");
-		return new ReturnValue<Object>(true, 1, "hello world", null, null);
-	}
+	/**
+	 * 引入接口处理资源
+	 */
+	@Resource
+	private LoginParamHandler loginParamHandler;
 
-	@RequestMapping(value = "/helloworld", method = RequestMethod.GET)
-	@ApiOperation(value = "打个招呼")
-	public Result helloword2() {
-		// System.out.println("执行成功");
-		return new Result(0, "hello world，这是我的第一个接口!");
-	}
-
-	// @RequestMapping(value = "/login", method = RequestMethod.GET)
+	/**
+	 * 定义post接口
+	 * 
+	 * @param input
+	 * @return
+	 */
 	@ApiOperation(value = "登录1")
 	@PostMapping("/login_mobile")
 	public ReturnValue<?> Login(
 			@RequestBody LoginParam.getTokenByMobileInput input) {
+
+		// 校验请求参数
 		ValidatorUtils.validateEntity(input);
 
-		return new ReturnValue<Object>(true, 1, "success", "login success",
-				null);
+		// 处理接口请求
+		ReturnValue<?> returnValue = loginParamHandler.getToken(input);
+
+		return returnValue;
 	}
 
-	@ApiOperation(value = "登录2")
-	@GetMapping("/login_qq")
-	// @RequestMapping(value = "/get_login", method = RequestMethod.GET)
-	public ReturnValue<?> getLogin(@RequestParam(value = "zone") String zone,
-			@RequestParam(value = "mobile") String mobile) {
-
-		return new ReturnValue<Object>(true, 1, "success", "login success",
-				null);
+	/**
+	 * 我的第一个接口
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/helloworld", method = RequestMethod.GET)
+	@ApiOperation(value = "打个招呼")
+	public Result helloword() {
+		log.info("这是我编写的第一个接口!");
+		return new Result(0, "hello world，这是我的第一个接口!");
 	}
 
-	@RequestMapping(value = "/login_wx", method = RequestMethod.GET)
-	@ApiOperation(value = "登录3")
+	/**
+	 * mock接口返回数据时，使用map集合
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/map_to_json", method = RequestMethod.GET)
+	@ApiOperation(value = "map集合输出json对象")
 	public Result login() {
-		// System.out.println("执行成功");
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("token", "123456");
+		map.put("token",
+				"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ");
 		return new Result(0, "success", map);
 	}
 
-	@RequestMapping(value = "/json_object", method = RequestMethod.GET)
+	/**
+	 * 演示mock接口响应结果，可以使用string类型转换成json对象输出
+	 * 
+	 * @return
+	 */
+	@PostMapping(value = "/str_to_json")
 	@ApiOperation(value = "直接通过字符串解析成json对象返回")
 	public Object objectA() {
 		String res = "{\"1\":{\"name\":\"张三\",\"age\":10},\"2\":{\"name\":\"李四\",\"age\":10},\"3\":{\"name\":\"王五\",\"age\":10}}";
-		String s = JSONArray.parseObject(res).getClass().toString();
-		System.out.println("数据类型：" + s);
+		// String s = JSONArray.parseObject(res).getClass().toString();
+		// System.out.println("数据类型：" + s);
 		return JSONArray.parseObject(res);
 	}
 
-	@RequestMapping(value = "/loginout", method = RequestMethod.GET)
+	/**
+	 * 指定method为Get请求的方法
+	 * 
+	 * @return
+	 */
+	@GetMapping(value = "/loginout/{id}")
 	@ApiOperation(value = "退出接口")
-	public Result loginout() {
-		return new Result(0, null);
+	public Result loginout(@PathVariable(value = "id") int id,
+			@RequestParam(value = "desc") String desc) {
+		return new Result(id, desc);
 	}
-
 }

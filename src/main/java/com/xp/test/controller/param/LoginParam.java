@@ -1,4 +1,4 @@
-package com.xp.test.param;
+package com.xp.test.controller.param;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -29,11 +29,13 @@ public class LoginParam {
 		private String mobile;
 
 	}
-
+	
+	
 	@ApiModel(value = "出参")
 	@Data
 	public static class TokenOutput {
 		@ApiModelProperty(value = "系统token(为null时, 需要执行绑定逻辑)")
 		private String token;
 	}
+
 }

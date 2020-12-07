@@ -14,6 +14,15 @@ import javax.validation.Validator;
 import java.util.Set;
 
 
+
+/**
+ * 异常工具
+ * 
+ * 
+ * @author qguan
+ *
+ */
+
 public final class ValidatorUtils {
     private static Validator validator;
 

@@ -1,34 +1,30 @@
 package com.xp.test.cmmon.ReturnValue;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * 响应结果类
+ * 
+ * @author qguan
+ *
+ * @param <T>
+ */
+
+@ApiModel(description = "API调用结果对象")
 @Data
 public class ReturnValue<T> {
-	/**
-	 * 结果
-	 */
+
 	private boolean result;
 
-	/**
-	 * 结果代码
-	 */
 	private Integer code;
 
-	/**
-	 * 结果代码描述
-	 */
 	private String codeDesc;
 
-	/**
-	 * 详细描述
-	 */
 	private String detailDesc;
 
-	/**
-	 * 返回值
-	 */
 	private T value;
 
 	private ReturnValue(boolean result, Integer code, String codeDesc, T value) {

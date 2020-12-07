@@ -5,6 +5,12 @@ import lombok.Getter;
 
 import com.xp.test.cmmon.ReturnValue.ReturnValue;
 
+/**
+ * 定义一些数据异常常量
+ * 
+ * @author qguan
+ *
+ */
 @AllArgsConstructor
 public enum ErrorInfoEnum {
 	// 用户中心错误码以 1xxxx 为准

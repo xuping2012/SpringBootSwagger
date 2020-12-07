@@ -1,43 +1,86 @@
 package com.xp.test.handler;
 
+import org.springframework.stereotype.Component;
+
 import com.xp.test.cmmon.ReturnValue.ReturnValue;
 import com.xp.test.common.constrant.ErrorInfoEnum;
-import com.xp.test.entity.Account;
+import com.xp.test.controller.param.LoginParam;
 
+import org.springframework.transaction.annotation.Transactional;
+
+@Component
 public class LoginParamHandler {
 
-	// @Transactional(rollbackFor = Exception.class)
-	public Account tryAddAccount(String zone, String mobile) {
-		// step1: 判断账号是否存在, 存在则直接返回, 不存在则新增账号
-		// Account account = accountService.getByZoneAndMobile(zone, mobile);
-		// if (Objects.nonNull(account)) {
-		// log.debug("账号已经存在, 无需新增. zone: {}, mobile: {}", zone, mobile);
-		// return account;
-		// }
-		Account account = new Account();
-		if (!zone.equals("86")) {
-			return null;
-		}
-		return account;
-	}
+	/**
+	 * 这里用来处理请求参数并且得到响应结果
+	 * 
+	 * @param input
+	 * @return
+	 */
+	public ReturnValue<LoginParam.TokenOutput> getToken(
+			LoginParam.getTokenByMobileInput input) {
 
-	public ReturnValue<?> canLogin(Account account) {
-		ReturnValue<?> result = ReturnValue.ofSuccessful();
+		ReturnValue<?> returnValue = returnFailed(input);
 
-		if (account.getDeleted()) {
-			result = ReturnValue.ofFailed(
-					ErrorInfoEnum.ACCOUNT_DELETED.getCode(),
-					ErrorInfoEnum.ACCOUNT_DELETED.getCodeDesc());
-		} else if (account.getStatus() == Account.STATUS_INVALID) {
-			result = ReturnValue.ofFailed(
+		if (returnValue.isFailed()) {
+			return ReturnValue.ofFailed(
 					ErrorInfoEnum.ACCOUNT_INVALID.getCode(),
 					ErrorInfoEnum.ACCOUNT_INVALID.getCodeDesc());
-		} else if (account.getStatus() == Account.STATUS_UNSUBSCRIBE) {
-			result = ReturnValue.ofFailed(
-					ErrorInfoEnum.ACCOUNT_UNSUBSCRIBE.getCode(),
-					ErrorInfoEnum.ACCOUNT_UNSUBSCRIBE.getCodeDesc());
 		}
-
-		return result;
+		return ReturnValue.ofSuccessful(0, "登录成功!!!");
 	}
+
+	/**
+	 * 
+	 * 示例：给任意一个失败的结果，也可以结合其他handler处理逻辑来返回结果
+	 * 
+	 * @param input
+	 * @return
+	 */
+
+	@Transactional(rollbackFor = Exception.class)
+	public ReturnValue<LoginParam.TokenOutput> returnFailed(
+			LoginParam.getTokenByMobileInput input) {
+
+		// 指定一个结果，才能登录/注册成功，其他帐号都无效
+		if (input.getMobile().equals("13266515340")) {
+			return ReturnValue.ofSuccessful();
+		}
+		return ReturnValue.ofFailed(ErrorInfoEnum.ACCOUNT_INVALID.getCode());
+	}
+	// @Transactional(rollbackFor = Exception.class)
+	// public ReturnValue<Tuple.TwoTuple<AuthParam.TokenOutput, Account>>
+	// getToken(AuthParam.GetTokenByMobileInput input, AuthTypeEnum
+	// authTypeEnum) {
+	// // step1: 校验验证码是否正确
+	// ReturnValue<?> checkSmsResult =
+	// smsHandler.hasSendItAMomentGo(input.getZone(), input.getMobile(),
+	// input.getCode());
+	// if (checkSmsResult.isFailed()) {
+	// return ReturnValue.ofFailed(checkSmsResult.getCode(),
+	// checkSmsResult.getCodeDesc());
+	// }
+	//
+	// // step2: 判断账户是否存在, 不存在则新增账户信息
+	// Account account = accountHandler.tryAddAccount(input.getZone(),
+	// input.getMobile());
+	//
+	// // step3: 记录相关日志
+	// UserLoginLog userLoginLog = userLoginLogService.addLoginLog(authTypeEnum,
+	// input.getDeviceInfo(), account);
+	//
+	// // step4: 判断该账户是否可用
+	// ReturnValue<?> canLoginResult = accountHandler.canLogin(account);
+	// if (canLoginResult.isFailed()) {
+	// return ReturnValue.ofFailed(canLoginResult.getCode(),
+	// canLoginResult.getCodeDesc());
+	// }
+	//
+	// // step5: 生成token信息
+	// ReturnValue<AuthParam.TokenOutput> tokenOutput =
+	// userTokenHandler.createToken(account.getUserId(), "",
+	// userLoginLog.getId());
+	// return ReturnValue.ofSuccessful(Tuple.of(tokenOutput.getValue(),
+	// account));
+	// }
 }

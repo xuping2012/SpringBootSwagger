@@ -2,6 +2,12 @@ package com.xp.test.cmmon.ReturnValue;
 
 import java.util.Map;
 
+/**
+ * 用做接口请求响应结果
+ * 
+ * @author qguan
+ *
+ */
 public class Result {
 
     public int status;
@@ -15,7 +21,6 @@ public class Result {
     }
 
     public Result(int status, String message) {
-
         super();
         this.status = status;
         this.message = message;
@@ -23,7 +28,6 @@ public class Result {
     }
 
     public Result(int status, String message,Map<String,Object> map) {
-
         super();
         this.status = status;
         this.message = message;
@@ -32,7 +36,6 @@ public class Result {
     }
 
     public Result(int status, String message, String response) {
-
         super();
         this.status = status;
         this.message = message;
