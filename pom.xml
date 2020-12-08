@@ -11,6 +11,8 @@
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 
+	<packaging>pom</packaging>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -156,21 +158,33 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.17</version>
 		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/net.sourceforge.jexcelapi/jxl & another hanlderExcel -->
+
+		<!-- https://mvnrepository.com/artifact/net.sourceforge.jexcelapi/jxl & 
+			another hanlderExcel -->
 		<dependency>
 			<groupId>net.sourceforge.jexcelapi</groupId>
 			<artifactId>jxl</artifactId>
 			<version>2.6.12</version>
 		</dependency>
-		
+
 
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
+
+		<dependency>
+			<groupId>net.sourceforge.javacsv</groupId>
+			<artifactId>javacsv</artifactId>
+			<version>2.0</version>
+		</dependency>
+
+
 	</dependencies>
+
+
+
 
 	<build>
 		<pluginManagement><!-- lock down plugins versions to avoid using Maven 
@@ -232,4 +246,7 @@
 		</snapshotRepository>
 	</distributionManagement>
 
+	<modules>
+		<module>springFwBoot</module>
+	</modules>
 </project>

@@ -2,7 +2,6 @@ package com.xp.test.base.client;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,13 +11,11 @@ import java.util.Set;
 import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -49,7 +46,6 @@ public class RestClient {
 	 */
 	public CloseableHttpResponse sendGet(String url)
 			throws ClientProtocolException, IOException {
-
 		// 创建一个可关闭的HttpClient对象
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		// 创建一个HttpGet的请求对象
@@ -66,7 +62,8 @@ public class RestClient {
 	 * 
 	 * @param url
 	 * @param param
-	 * @return
+	 *            :account=&passwd=
+	 * @return 返回响应对象
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
@@ -135,7 +132,7 @@ public class RestClient {
 	 * @param url
 	 * @param headermap
 	 * @param param
-	 * @return
+	 * @return 返回响应对象
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
@@ -181,7 +178,7 @@ public class RestClient {
 	 * @throws IOException
 	 */
 	public CloseableHttpResponse sendPost(String url, String entityString,
-			HashMap<String, String> headermap) {
+			Map<String, String> headermap) {
 		// 创建一个可关闭的HttpClient对象
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		// 创建一个HttpPost的请求对象
@@ -235,26 +232,6 @@ public class RestClient {
 
 		Log.info("start send post request");
 		return null;
-	}
-
-	/**
-	 * ？不带参数的get请求
-	 * 
-	 * @param url
-	 * @return
-	 */
-	public static String sendGet3(String url) {
-		String result = "";
-		HttpGet httpGet = new HttpGet();
-		try {
-			httpGet.setURI(new URI(url));
-			CloseableHttpClient httpClient = HttpClients.createDefault();
-			CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
-			result = EntityUtils.toString(httpResponse.getEntity());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
 	}
 
 	/**
@@ -362,61 +339,4 @@ public class RestClient {
 		return paramPairs;
 	}
 
-	/**
-	 * 封装post请求方法
-	 * 
-	 * @param url
-	 * @param params
-	 * @return
-	 */
-	public static String sendPOST2(String url, String params) {
-
-		// 接口响应数据
-		String result = "";
-		// 创建post对象，并提交接口请求
-		HttpPost httpPost = new HttpPost(url);
-		// 获取参数集合
-		List<NameValuePair> paramPairs = getParamList(params);
-		try {
-			// 参数封装到请求体当中
-			httpPost.setEntity(new UrlEncodedFormEntity(paramPairs));
-			// 准备可关闭的客户端
-			CloseableHttpClient httpClient = HttpClients.createDefault();
-			// 提交请求接收响应报文
-			CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
-			// 解析接口返回的数据，返回String类型
-			result = EntityUtils.toString(httpResponse.getEntity());
-
-		} catch (Exception e) {
-			// 当捕捉的异常有很多类时，需要不断的catch或者在方法体抛出，如果不想太麻烦就抛出异常的父类
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return result;
-	}
-
-	/**
-	 * 封装GET请求方法
-	 * 
-	 * @param url
-	 * @param params
-	 * @return
-	 */
-	public static String sendGet2(String url, String params) {
-		String result = "";
-		List<NameValuePair> paramPairs = getParamList(params);
-		HttpGet httpGet = new HttpGet();
-		String paramsString = URLEncodedUtils.format(paramPairs, "UTF-8");
-		url += ("?" + paramsString);
-		try {
-			httpGet.setURI(new URI(url));
-			CloseableHttpClient httpClient = HttpClients.createDefault();
-			CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
-			result = EntityUtils.toString(httpResponse.getEntity());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
 }

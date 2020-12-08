@@ -24,7 +24,7 @@ public class BasicConfig {
 			prop = new Properties();
 			FileInputStream fis = new FileInputStream(
 					System.getProperty("user.dir")
-							+ "/src/main/resources/config.properties");
+							+ "/src/test/resources/config.properties");
 			prop.load(fis);
 //			使用Exception 类集合，去掉了IOException、FileNotFoundException异常
 		} catch (Exception e) {
