@@ -14,9 +14,9 @@ import org.apache.log4j.Logger;
 import com.xp.test.base.client.RestClient;
 import com.xp.test.common.utils.HandleExcelUtils;
 
-public class TestNGExcelDatas {
+public class DataProviderByExcel {
 
-	final static Logger Log = Logger.getLogger(TestNGExcelDatas.class);
+	final static Logger Log = Logger.getLogger(DataProviderByExcel.class);
 
 	static String sourceFile = System.getProperty("user.dir")
 			+ "/src/test/resources/test.xls";
@@ -35,9 +35,9 @@ public class TestNGExcelDatas {
 	}
 
 	@DataProvider(name = "testData")
-	Object[][] dataProvider() throws IOException {
-
-		return handleExcelUtils.getDataByExcel(sourceFile);
+	static Object[][] dataProvider() throws IOException {
+		System.out.println(sourceFile);
+		return HandleExcelUtils.getDataByExcel(sourceFile);
 
 	}
 

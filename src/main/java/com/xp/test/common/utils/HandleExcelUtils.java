@@ -31,6 +31,15 @@ public class HandleExcelUtils {
 
 	final static Logger Log = Logger.getLogger(HandleExcelUtils.class);
 
+	
+	public static void main(String[] args) throws IOException {
+		Object[][] ob=HandleExcelUtils.getDataByExcel(System.getProperty("user.dir")+"/src/test/resources/test.xls");
+		for(int i=0;i<ob.length;i++){
+			for(int j=0;j<ob[i].length;j++){
+				System.out.println(ob[i][j]);
+			}
+		}
+	}
 	/**
 	 * @param excelPath
 	 *            :文件路径
@@ -101,7 +110,7 @@ public class HandleExcelUtils {
 	 * @throws IOException
 	 */
 	@SuppressWarnings({ "resource", "deprecation" })
-	public Object[][] getDataByExcel(String filePath) throws IOException {
+	public static Object[][] getDataByExcel(String filePath) throws IOException {
 		File file = new File(filePath);
 		FileInputStream inputStream = new FileInputStream(file);
 		Workbook workbook = null;
