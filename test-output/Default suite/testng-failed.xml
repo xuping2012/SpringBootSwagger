@@ -3,12 +3,12 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.xp.test.http.ddt.TestNGExcelDatas">
+      <class name="com.xp.test.http.restClient.PostApiTest">
         <methods>
+          <include name="test_postApi"/>
           <include name="bf"/>
-          <include name="testDataDrivenByExcelFile"/>
         </methods>
-      </class> <!-- com.xp.test.http.ddt.TestNGExcelDatas -->
+      </class> <!-- com.xp.test.http.restClient.PostApiTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

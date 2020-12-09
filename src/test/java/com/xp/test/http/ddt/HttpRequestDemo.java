@@ -69,8 +69,6 @@ public class HttpRequestDemo extends BasicConfig {
 		// 请求地址url
 		String url = prop.getProperty("HOST") + "/api/login";
 
-		System.out.println(url);
-
 		// 接收http响应结果
 		CloseableHttpResponse closeableHttpResponse = restClient.sendPost(url,
 				content, headerMap);

@@ -8,15 +8,13 @@ import com.xp.test.common.utils.HandleMySQLUtils;
 
 public class DataProviderByMySQL extends BasicConfig {
 
-	private HandleMySQLUtils handleMySQLUtils;
-
 	/**
 	 * @DataProvider：获取数据源
 	 * @return
 	 */
 	@DataProvider(name = "testData")
 	Object[][] words() {
-		return handleMySQLUtils.getTestData("mysql.user");
+		return HandleMySQLUtils.resultBySQL();
 	}
 
 	/**
@@ -27,10 +25,9 @@ public class DataProviderByMySQL extends BasicConfig {
 	 * @param searchResult
 	 */
 	@Test(dataProvider = "testData")
-	public void testDataDrivenByMysqlDatabase(String searchWord1,
-			String searchWord2, String searchResult) {
+	public void testDataDrivenByMysqlDatabase(String host, String user) {
 
-		System.out.println("测试参数：" + searchWord1);
+		System.out.println("测试参数：" + host);
 
 	}
 

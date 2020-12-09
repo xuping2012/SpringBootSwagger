@@ -13,55 +13,85 @@ import com.xp.test.common.config.BasicConfig;
 
 public class HandleMySQLUtils extends BasicConfig {
 
-	static String host;
-	static String passwd;
-	static String user;
+	public static Connection conn;
 
 	/**
-	 * 传入一个表名，数据的连接
+	 * 创建数据库连接
 	 * 
-	 * @param tablename
+	 * @param url
+	 *            切记要携带database，否则在sql中必须携带database.table
+	 * @param user
+	 * @param passwd
 	 * @return
 	 */
-	public Object[][] getTestData(String tablename) {
-		// 声明mysql数据库驱动
-		String mysqlDriver = "com.mysql.cj.jdbc.Driver";
-		// 配置数据库的IP地址，端口，数据库名称，账号，密码
-		host = prop.getProperty("MYSQL_HOST");
-		user = prop.getProperty("MYSQL_USER");
-		passwd = prop.getProperty("MYSQL_PASSWD");
-
-		// 通过设置配置信息调用getconnection另一个方法
-		// Properties properties = new Properties();
-		// properties.setProperty("user", user);
-		// properties.setProperty("password", passwd);
-		// properties.setProperty("useSSL", "false");
-		// Connection connection = DriverManager.getConnection(host,
-		// properties);
-
-		List<Object[]> records = new ArrayList<Object[]>();
-
+	public static Connection connectMySQL(String url, String user, String passwd) {
 		try {
-			// 设定驱动
-			Class.forName(mysqlDriver);
-			// 声明连接数据库的链接对象，使用数据库服务器的地址，用户名和密码作为参数
-			Connection connection = DriverManager.getConnection(host, user,
-					passwd);
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, user, passwd);
 			// 如果数据库连接可用，打印数据库连接成功的信息
-			if (!connection.isClosed()) {
+			if (!conn.isClosed()) {
 				System.out.println("连接数据库成功");
 			}
-			// 创建statement对象
-			Statement statement = connection.createStatement();
-			// 使用函数参数拼接要执行的sql语句，此语句用来获取数据表的所有数据行
-			String sql = "SELECT host,user from " + tablename;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-			// 声明ResultSet对象，存取执行sql语句后返回的数据结果集
+		return conn;
+
+	}
+
+	/**
+	 * default 创建数据库连接
+	 * 
+	 * @return
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public static Connection connectMySQL() {
+		String url = "jdbc:mysql://47.107.254.16:3306/mysql?useSSL=false";// prop.getProperty("MYSQLHOST");
+		String userName = "root";// prop.getProperty("MYSQLUSER");
+		String password = "Hcp_dev_0326";// prop.getProperty("MYSQLPASSWD");
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(url, userName, password);
+			// 如果数据库连接可用，打印数据库连接成功的信息
+			if (!conn.isClosed()) {
+				System.out.println("连接数据库成功");
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return conn;
+
+	}
+
+	/**
+	 * default 查询sql
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	public static Object[][] resultBySQL() {
+		// 创建数据库连接
+		Connection conn = connectMySQL();
+
+		// list集合添加每一条sql数据
+		List<Object[]> records = new ArrayList<Object[]>();
+		// 执行的sql
+		String sql = "select host,user from user";
+		// 创建statement对象
+		try {
+			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
-			// 声明一个ResultSetMetaData对象
-			ResultSetMetaData rsMetaDate = rs.getMetaData();
+			ResultSetMetaData res = rs.getMetaData();
+
 			// 获取数据行的列数
-			int cols = rsMetaDate.getColumnCount();
+			int cols = res.getColumnCount();
 
 			// 使用next方法遍历数据结果集中的所有数据行
 			while (rs.next()) {
@@ -70,23 +100,69 @@ public class HandleMySQLUtils extends BasicConfig {
 					files[i] = rs.getString(i + 1);
 				}
 				records.add(files);
-				System.out.println(rs.getString(1) + " " + rs.getString(2));
 			}
+			// 关闭数据库连接
 			rs.close();
-			connection.close();
+			conn.close();
 
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		// 二维数组
 		Object[][] results = new Object[records.size()][];
+		// 遍历list列表数据
 		for (int i = 0; i < records.size(); i++) {
 			results[i] = records.get(i);
 		}
+
 		return results;
 	}
 
+	/**
+	 * 查询sql
+	 * 
+	 * @param sql
+	 * @return
+	 */
+	public static Object[][] resultBySQL(String sql) {
+		// 创建数据库连接
+		Connection conn = connectMySQL();
+
+		// list集合添加每一条sql数据
+		List<Object[]> records = new ArrayList<Object[]>();
+		// 创建statement对象
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(sql);
+			ResultSetMetaData res = rs.getMetaData();
+
+			// 获取数据行的列数
+			int cols = res.getColumnCount();
+
+			// 使用next方法遍历数据结果集中的所有数据行
+			while (rs.next()) {
+				String files[] = new String[cols];
+				for (int i = 0; i < cols; i++) {
+					files[i] = rs.getString(i + 1);
+				}
+				records.add(files);
+			}
+			// 关闭数据库连接
+			rs.close();
+			conn.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// 二维数组
+		Object[][] results = new Object[records.size()][];
+		// 遍历list列表数据
+		for (int i = 0; i < records.size(); i++) {
+			results[i] = records.get(i);
+		}
+
+		return results;
+	}
 }
