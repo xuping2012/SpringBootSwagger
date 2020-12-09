@@ -33,4 +33,19 @@ public class BasicConfig {
 			e.printStackTrace();
 		}
 	}
+
+	public String getValueByKey(String key) {
+
+		prop = new Properties();
+		try {
+			FileInputStream fis = new FileInputStream(
+					System.getProperty("user.dir")
+							+ "/src/test/resources/config.properties");
+			prop.load(fis);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return prop.getProperty(key);
+	}
+
 }
