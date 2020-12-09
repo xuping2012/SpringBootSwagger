@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+	<parameter name="report.config" value="src/main/resources/extent-config.xml" />
+	<parameter name="system.info" value="com.xp.test.common.listener.MySystemInfo" />
+	<listeners>
+		<listener class-name="com.xp.test.common.reports.MyExtentTestNgListener" />
+	</listeners>
+	<test name="Test">
+		<classes>
+			<class name="com.xp.test.http.ddt.HttpRequestDemo" />
+			<class name="com.xp.test.http.restClient.PostApiTest" />
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->
