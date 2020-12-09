@@ -6,6 +6,12 @@ import org.testng.annotations.Test;
 import com.xp.test.common.config.BasicConfig;
 import com.xp.test.common.utils.HandleMySQLUtils;
 
+/**
+ * 从数据库读取数据
+ * 
+ * @author qguan
+ *
+ */
 public class DataProviderByMySQL extends BasicConfig {
 
 	/**

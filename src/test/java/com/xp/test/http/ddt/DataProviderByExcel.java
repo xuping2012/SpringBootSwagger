@@ -14,6 +14,12 @@ import org.apache.log4j.Logger;
 import com.xp.test.base.client.RestClient;
 import com.xp.test.common.utils.HandleExcelUtils;
 
+/**
+ * excel作为数据源驱动
+ * 
+ * @author qguan
+ *
+ */
 public class DataProviderByExcel {
 
 	final static Logger Log = Logger.getLogger(DataProviderByExcel.class);

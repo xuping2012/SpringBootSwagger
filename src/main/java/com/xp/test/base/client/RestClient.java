@@ -166,7 +166,7 @@ public class RestClient {
 	}
 
 	/**
-	 * 封装post方法
+	 * 封装带请求头的post方法
 	 * 
 	 * @param url
 	 * @param entityString

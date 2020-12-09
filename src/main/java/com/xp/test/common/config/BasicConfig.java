@@ -12,22 +12,23 @@ import java.util.Properties;
 public class BasicConfig {
 
 	public static Properties prop;
+	// 这些常量数据，可以提取出去
 	public int RESPNSE_STATUS_CODE_200 = 200;
 	public int RESPNSE_STATUS_CODE_201 = 201;
 	public int RESPNSE_STATUS_CODE_404 = 404;
 	public int RESPNSE_STATUS_CODE_500 = 500;
 
-	// 写一个构造函数,读取配置文件
+	// 构造函数,读取配置文件
 	public BasicConfig() {
 
 		try {
 			prop = new Properties();
 			FileInputStream fis = new FileInputStream(
-					System.getProperty("user.dir")+ "/src/test/resources/config.properties");
-			
-			System.out.println(System.getProperty("user.dir")+ "/src/test/resources/config.properties");
+					System.getProperty("user.dir")
+							+ "/src/test/resources/config.properties");
+
 			prop.load(fis);
-		// 使用Exception 类集合，去掉了IOException、FileNotFoundException异常
+			// 使用Exception 类集合，去掉了IOException、FileNotFoundException异常
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

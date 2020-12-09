@@ -6,6 +6,12 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.testng.TestNG;
 
+/**
+ * 网络大神安东尼，为解决testng框架测试失败重试的方案
+ * 
+ * @author qguan
+ *
+ */
 public class ReRunCases {
 
 	final static Logger Log = Logger.getLogger(ReRunCases.class);

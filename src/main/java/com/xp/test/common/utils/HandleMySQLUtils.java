@@ -42,16 +42,16 @@ public class HandleMySQLUtils extends BasicConfig {
 	}
 
 	/**
-	 * default 创建数据库连接
+	 * default 创建数据库连接 修改数据
 	 * 
 	 * @return
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
 	public static Connection connectMySQL() {
-		String url = "jdbc:mysql://47.107.254.16:3306/mysql?useSSL=false";// prop.getProperty("MYSQLHOST");
+		String url = "jdbc:mysql://192.107.254.161:3306/mysql?useSSL=false";// prop.getProperty("MYSQLHOST");
 		String userName = "root";// prop.getProperty("MYSQLUSER");
-		String password = "Hcp_dev_0326";// prop.getProperty("MYSQLPASSWD");
+		String password = "";// prop.getProperty("MYSQLPASSWD");
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(url, userName, password);

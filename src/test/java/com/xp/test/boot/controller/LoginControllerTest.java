@@ -11,7 +11,7 @@ import com.xp.test.controller.LoginController;
 import com.xp.test.controller.param.LoginParam;
 
 /**
- * Unit test for simple App.
+ * Unit test for simple App. springboot框架单元测试demo
  */
 public class LoginControllerTest extends BaseServer {
 

@@ -9,6 +9,8 @@ import com.alibaba.fastjson.JSONObject;
 /**
  * 封装JSON格式数据提取方法
  * 
+ * 这个工具类也是为了提供给jmeter做接口自动化测试的
+ * 
  * @author qguan
  *
  */

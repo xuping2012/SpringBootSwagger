@@ -3,6 +3,12 @@ package com.xp.test.http.ddt;
 import org.testng.annotations.Test;
 import org.testng.annotations.DataProvider;
 
+/**
+ * testng本身框架支持的DataProvider注解
+ * 
+ * @author qguan
+ *
+ */
 public class DataProviderByObject {
 
 	/**
@@ -26,8 +32,7 @@ public class DataProviderByObject {
 	 * @param SearchResult
 	 */
 	@Test(dataProvider = "searchWords")
-	public void dataProviderTest(String param1, String param2,
-			String param3) {
+	public void dataProviderTest(String param1, String param2, String param3) {
 
 		System.out.println("第一个参数遍历:" + param1);
 

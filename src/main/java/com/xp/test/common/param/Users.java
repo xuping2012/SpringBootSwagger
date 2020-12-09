@@ -1,7 +1,7 @@
 package com.xp.test.common.param;
 
 /**
- * 一些http接口请求的参数封装 根据接口名称来设置成员变量
+ * 一些http接口请求的参数封装 根据接口名称来设置成员变量 其他接口，可以仿照如此设计
  * 
  * @author qguan
  *

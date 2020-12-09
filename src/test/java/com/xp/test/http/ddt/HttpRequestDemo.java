@@ -19,8 +19,8 @@ import com.xp.test.common.utils.HandleParamUtils;
 import com.xp.test.common.utils.JSONExtractor;
 
 /**
- * 集成配置类，读取文件参数
- * 
+ * 集成配置类，读取文件参数 ；接口测试demo
+ *
  * @author qguan
  *
  */

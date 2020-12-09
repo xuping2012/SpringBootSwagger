@@ -15,6 +15,8 @@ import com.google.gson.reflect.TypeToken;
 /**
  * 公用替换参数的类，其中封装了参数替换的方法，不定长传参转list
  * 
+ * 这个类本来是提供给jmeter做接口自动化使用
+ * 
  * @author Administrator
  *
  */

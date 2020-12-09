@@ -29,3 +29,6 @@
 - - @RequestParam注解是自定义组装拼接的参数
 - @RequestMethod 如果不指定请求方法:method = RequestMethod.GET，它会支持所有http请求的方法
 - - 如果有参数，可以在方法里(@RequestParam(""))
+
+#### @DataProvider注解
+- 在接口测试框架中，通过注解，从csv、excel、mysql读取数据驱动接口测试

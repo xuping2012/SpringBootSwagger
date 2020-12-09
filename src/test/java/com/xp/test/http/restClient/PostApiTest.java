@@ -17,6 +17,12 @@ import com.xp.test.common.config.BasicConfig;
 import com.xp.test.common.param.Users;
 import com.xp.test.common.utils.JSONExtractor;
 
+/**
+ * testng测试框架，接口测试用例demo
+ * 
+ * @author qguan
+ *
+ */
 public class PostApiTest extends BasicConfig {
 
 	String host;

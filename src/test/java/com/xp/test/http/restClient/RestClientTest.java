@@ -1,7 +1,6 @@
 package com.xp.test.http.restClient;
 
 import java.util.HashMap;
-
 import javax.annotation.Resource;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -12,16 +11,22 @@ import org.testng.annotations.Test;
 import com.xp.test.base.client.RestClient;
 import com.xp.test.common.config.BasicConfig;
 
-public class RestClientTest {
+/**
+ * 测试封装http请求基类
+ * 
+ * @author qguan
+ *
+ */
+public class RestClientTest extends BasicConfig {
 
 	@Resource
 	private RestClient restClient;
-	
+
 	@Resource
 	private BasicConfig bconf;
-	
+
 	HashMap<String, String> headermap;
-	
+
 	@BeforeClass
 	void bf() {
 		// 创建http请求对象
@@ -40,7 +45,7 @@ public class RestClientTest {
 
 		String jsonBody = "{\"name\": \"morpheus\",\"job\": \"leader\"}";
 
-		String host = bconf.prop.getProperty("HOST") + url;
+		String host = prop.getProperty("HOST") + url;
 		// String Content=;
 		// 接收http响应结果
 		CloseableHttpResponse closeableHttpResponse = restClient.sendPost(host,

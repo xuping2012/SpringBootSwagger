@@ -70,10 +70,9 @@ public class HandleCsvUtils {
 					",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)");
 
 			for (int i = 0; i < fields.length; i++) {
-				// 处理之后的单元格数据重新写入一维数组
-				System.out.println(fields[i]);
-				// fields[i] = fields[i].replaceAll("^\"",
-				// "").replaceAll("\"$","");
+				// 处理之后的单元格数据重新写入一维数组;去掉收尾双引号
+				fields[i] = fields[i].replaceAll("^\"", "").replaceAll("\"$",
+						"");
 			}
 
 			records.add(fields);
@@ -91,19 +90,28 @@ public class HandleCsvUtils {
 		return results;
 	}
 
+	/**
+	 * CsvReader这个工具类的使用，但是需要内部消化 转成Object[][]二维数组提供testng数据源
+	 * 
+	 * @param filePath
+	 * @return
+	 * @throws Exception
+	 */
 	public static ArrayList<String[]> readCSV(String filePath) throws Exception {
 		CsvReader reader = null;
 		ArrayList<String[]> dataList = new ArrayList<String[]>();
-		
+
 		try {
 			// 如果生产文件乱码，windows下用gbk，linux用UTF-8
-			reader = new CsvReader(filePath, separator, Charset.forName("utf-8"));
+			reader = new CsvReader(filePath, separator,
+					Charset.forName("utf-8"));
 
 			// 读取表头
 			reader.readHeaders();
-			
+
 			String[] headArray = reader.getHeaders();// 获取标题
-			System.out.println("我是"+headArray[0] + headArray[1] + headArray[2]);
+			System.out.println("我是" + headArray[0] + headArray[1]
+					+ headArray[2]);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -116,20 +124,4 @@ public class HandleCsvUtils {
 		return dataList;
 	}
 
-	public static void main(String[] args) throws Exception {
-		String destFile = "D:\\javaworkspace\\springbootSwagger\\src\\test\\resources\\test.csv";
-		Object[][] ob = HandleCsvUtils.getDatasByCSV(destFile);
-
-		for (int i = 0; i < ob.length; i++) {
-			for (int j = 0; j < ob[i].length; j++) {
-				System.out.println(ob[i][j]);
-			}
-
-		}
-		List<String[]> res = HandleCsvUtils.readCSV(destFile);
-
-		for (int i = 0; i < res.size(); i++) {
-			System.out.println(res.get(i));
-		}
-	}
 }
