@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite">
 	<parameter name="report.config" value="src/main/resources/extent-config.xml" />
-	<parameter name="system.info" value="com.xp.test.common.listener.MySystemInfo" />
+	<parameter name="system.info" value="com.xp.test.common.reports.MySystemInfo" />
 	<listeners>
 		<listener class-name="com.xp.test.common.reports.MyExtentTestNgListener" />
 	</listeners>
