@@ -1,6 +1,0 @@
-# yml配置文件有意思的地方，后面的参数必须与关键字之间有个空格，python也不例外
-server:
-  port: 8090
-  
-mconfig:
-  swagger-ui-open: true
