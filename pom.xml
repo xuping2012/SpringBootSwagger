@@ -17,6 +17,8 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<springboot.version>2.3.0.RELEASE</springboot.version>
 		<selenium.version>3.0.0</selenium.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<xmlFileName>testng.xml</xmlFileName>
 	</properties>
 
 
@@ -33,14 +35,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.13</version><!--$NO-MVN-MAN-VER$ -->
-		</dependency>
-
-		<!-- testng -->
-		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>6.10</version>
-			<scope>test</scope>
 		</dependency>
 
 		<!-- mysql -->
@@ -255,14 +249,34 @@
 			<version>1.1.4</version>
 			<scope>test</scope>
 		</dependency>
-
-		<!-- java.lang.NoClassDefFoundError: com/google/inject/Injector -->
+		<!-- guice：报错java.lang.NoClassDefFoundError: com/google/inject/Injector -->
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
 			<version>4.1.0</version>
 			<classifier>no_aop</classifier>
 			<scope>test</scope>
+		</dependency>
+
+		<!-- testng -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.10</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.maven.reporting</groupId>
+			<artifactId>maven-reporting-api</artifactId>
+			<version>2.0.9</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.testng</groupId>
+					<artifactId>testng</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 
@@ -291,9 +305,40 @@
 					<version>3.8.0</version>
 				</plugin>
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>2.22.1</version>
+					<!-- 这里配置maven执行testng.xml测试套件报告 -->
+					<!-- <configuration> <suiteXmlFiles> <suiteXmlFile> src/test/resources/${xmlFileName} 
+						</suiteXmlFile> </suiteXmlFiles> </configuration> -->
 				</plugin>
+
+
+				<!-- 这里配置报告监听器 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.22.1</version>
+					<configuration>
+						<properties>
+							<property>
+								<name>usedefaultlisteners</name>
+								<value>false</value>
+							</property>
+							<property>
+								<name>listener</name>
+								<!-- 监听器的类 -->
+								<value>org.uncommons.reportng.HTMLReporter,
+									org.uncommons.reportng.JUnitXMLReporter</value>
+							</property>
+						</properties>
+						<workingDirectory>target/</workingDirectory>
+						<forkMode>always</forkMode>
+						<!-- 解决报告中中文乱码 -->
+						<argLine>-Dfile.encoding=UTF-8</argLine>
+					</configuration>
+				</plugin>
+
 				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
 					<version>3.0.2</version>
