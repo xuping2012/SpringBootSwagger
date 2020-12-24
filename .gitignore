@@ -24,7 +24,7 @@ hs_err_pid*
 
 
 
-# dir
+# dir，create file or floder
 .idea/
 .settings/
 resources/
