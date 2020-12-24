@@ -231,16 +231,41 @@
 			<version>${selenium.version}</version><!--$NO-MVN-MAN-VER$ -->
 		</dependency>
 		<dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-api</artifactId>
-            <version>${selenium.version}</version><!--$NO-MVN-MAN-VER$-->
-        </dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-api</artifactId>
+			<version>${selenium.version}</version><!--$NO-MVN-MAN-VER$ -->
+		</dependency>
 		<dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-chrome-driver</artifactId>
-            <version>${selenium.version}</version><!--$NO-MVN-MAN-VER$-->
-        </dependency>
-		
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-chrome-driver</artifactId>
+			<version>${selenium.version}</version><!--$NO-MVN-MAN-VER$ -->
+		</dependency>
+
+		<!-- 一个检查代码覆盖率依赖 -->
+		<dependency>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>cobertura-maven-plugin</artifactId>
+			<version>2.7</version>
+		</dependency>
+
+		<!-- reportng代替testng默认的报告 -->
+		<dependency>
+			<groupId>org.uncommons</groupId>
+			<artifactId>reportng</artifactId>
+			<version>1.1.4</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- java.lang.NoClassDefFoundError: com/google/inject/Injector -->
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>4.1.0</version>
+			<classifier>no_aop</classifier>
+			<scope>test</scope>
+		</dependency>
+
+
 	</dependencies>
 
 
@@ -297,6 +322,35 @@
 					<configuration>
 						<mainClass>com.java.starter.Application</mainClass>
 					</configuration>
+				</plugin>
+
+
+
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.8.3</version>
+					<configuration>
+						<!--指定生成 .exec 文件的存放位置 -->
+						<destFile>target/coverage-reports/jacoco-unit.exec</destFile>
+						<!--Jacoco 是根据 .exec 文件生成最终的报告，所以需指定 .exec 的存放路径 -->
+						<dataFile>target/coverage-reports/jacoco-unit.exec</dataFile>
+					</configuration>
+					<executions>
+						<execution>
+							<id>jacoco-initialize</id>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>jacoco-site</id>
+							<phase>package</phase>
+							<goals>
+								<goal>report</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 
 			</plugins>

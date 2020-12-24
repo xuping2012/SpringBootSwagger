@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 
 import com.xp.test.base.client.RestClient;
 import com.xp.test.common.utils.HandleCsvUtils;
-
 /**
  * 
  * csv数据源

@@ -30,7 +30,7 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 public class TestNGReporterListener implements IReporter {
 
 	private static final String OUTPUT_DIR = "test-output/";
-	private static final String FILE_NAME = "index_report.html";
+	private static final String FILE_NAME = "DefindTestNGReporter_index.html";
 	private ExtentReports extent;
 
 	/**

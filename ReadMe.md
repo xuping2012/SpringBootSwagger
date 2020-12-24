@@ -32,3 +32,9 @@
 
 #### @DataProvider注解
 - 在接口测试框架中，通过注解，从csv、excel、mysql读取数据驱动接口测试
+
+
+#### testReporterListener监听器
+- MyExtentTestNgListener，类似allure-html测试报告样式，继承testng-报告插件，重写
+- TestNgReporterListener，同类，继承IReport，是testng的报告，重写
+- pom添加reportng依赖，覆盖原来的testng的报告

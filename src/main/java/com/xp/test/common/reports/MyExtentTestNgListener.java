@@ -23,15 +23,21 @@ import java.util.List;
 import java.util.Map;
 
 public class MyExtentTestNgListener extends ExtentTestNgFormatter {
+
 	private static final String REPORTER_ATTR = "extentTestNgReporter";
 	private static final String SUITE_ATTR = "extentTestNgSuite";
 	private ExtentReports reporter;
 	private List<String> testRunnerOutput;
 	private Map<String, String> systemInfo;
 	private ExtentHtmlReporter htmlReporter;
-
+	// 报告文件名称
+	private String MyReportPrefix = "MyDefindTestNGReport_";
+	private String MyEmailReportPrefix = "MyDefindEmailTestNGReport_";
 	private static ExtentTestNgFormatter instance;
 
+	/**
+	 * 构造方法
+	 */
 	public MyExtentTestNgListener() {
 		setInstance(this);
 		testRunnerOutput = new ArrayList<>();
@@ -50,19 +56,19 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 						"Failed to create output run directory");
 			}
 		}
-		
+
 		// 获取当前执行时间，生成报告文件
 		Date date = new Date();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-hh-mm");
 
-		File reportFile = new File(reportPath, "report" + df.format(date)
+		File reportFile = new File(reportPath, MyReportPrefix + df.format(date)
 				+ ".html");
-		File emailReportFile = new File(reportPath, "emailable-report"
+		File emailReportFile = new File(reportPath, MyEmailReportPrefix
 				+ df.format(date) + ".html");
 
 		htmlReporter = new ExtentHtmlReporter(reportFile);
 		EmailReporter emailReporter = new EmailReporter(emailReportFile);
-		
+
 		reporter = new ExtentReports();
 		// 如果cdn.rawgit.com访问不了，可以设置为：ResourceCDN.EXTENTREPORTS或者ResourceCDN.GITHUB
 		htmlReporter.config().setResourceCDN(ResourceCDN.EXTENTREPORTS);
@@ -101,6 +107,9 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 		this.systemInfo = systemInfo;
 	}
 
+	/**
+	 * 
+	 */
 	public void onStart(ISuite iSuite) {
 		if (iSuite.getXmlSuite().getTests().size() > 0) {
 			ExtentTest suite = reporter.createTest(iSuite.getName());
@@ -121,6 +130,10 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 		}
 	}
 
+	/**
+	 * 
+	 * @param systemInfoCustomImplName
+	 */
 	private void generateSystemInfo(String systemInfoCustomImplName) {
 		try {
 			Class<?> systemInfoCustomImplClazz = Class
@@ -141,6 +154,13 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.vimalselvam.testng.listener.ExtentTestNgFormatter#onFinish(org.testng
+	 * .ISuite)
+	 */
 	public void onFinish(ISuite iSuite) {
 	}
 
@@ -164,6 +184,9 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 
 	}
 
+	/**
+ * 
+ */
 	public void onStart(ITestContext iTestContext) {
 		ISuite iSuite = iTestContext.getSuite();
 		ExtentTest suite = (ExtentTest) iSuite.getAttribute(SUITE_ATTR);
@@ -173,6 +196,10 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 		iTestContext.setAttribute("testContext", testContext);
 	}
 
+	/**
+	 * 
+ * 
+ */
 	public void onFinish(ITestContext iTestContext) {
 		ExtentTest testContext = (ExtentTest) iTestContext
 				.getAttribute("testContext");
@@ -185,6 +212,9 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 		}
 	}
 
+	/**
+ * 
+ */
 	public void beforeInvocation(IInvokedMethod iInvokedMethod,
 			ITestResult iTestResult) {
 		if (iInvokedMethod.isTestMethod()) {
@@ -197,6 +227,13 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.vimalselvam.testng.listener.ExtentTestNgFormatter#afterInvocation
+	 * (org.testng.IInvokedMethod, org.testng.ITestResult)
+	 */
 	public void afterInvocation(IInvokedMethod iInvokedMethod,
 			ITestResult iTestResult) {
 		if (iInvokedMethod.isTestMethod()) {
