@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="suitename" verbose="3" parallel="none" thread-count="5"
+	annotations="javadoc" time-out="10000" skipfailedinvocationcounts="true"
+	data-provider-thread-count="5" object-factory="classname"
+	allow-return-values="true" configfailurepolicy="skip">
+
+	<!-- 测试套件，其他testng.xml测试用例集合 -->
+	<!-- path 必须制定文件路径 -->
+	<suite-files>
+		<!-- suite-file path="/path/to/suitefile1"></suite-file> -->
+		<suite-file path="./src/test/testngOfxml/testng_lis.xml"></suite-file>
+	</suite-files>
+
+
+	<!-- 参数，与@DataProvider({"par1","par2"})注解使用 如果其他地方找不到parameter标签，最后查找test标签外的parameter标签 -->
+	<parameter name="url" value="https://www.csdn.com"></parameter>
+	<parameter name="browser" value="Chrome"></parameter>
+
+	<!-- 方法过滤器 -->
+	<!-- 示例有值的为必填项 -->
+	<method-selectors>
+		<method-selector>
+			<selector-class name="classname" priority="1"></selector-class>
+			<script language="java"></script>
+		</method-selector>
+	</method-selectors>
+
+	<!-- 测试用例 -->
+	<test name="testename" verbose="3" parallel="none" thread-count="5"
+		annotations="javadoc" time-out="10000" enabled="true"
+		skipfailedinvocationcounts="true" preserve-order="true"
+		allow-return-values="true">
+
+		<!-- 参数，与@DataProvider({"par1","par2"})注解使用，优先查找test标签的parameter标签 -->
+		<parameter name="url" value="https://www.baidu.com" />
+		<parameter name="browser" value="Chrome" />
+
+		<!-- 分组测试:@Test注解，可以分测试组测试， -->
+		<!-- 示例有值的为必填项 -->
+		<groups>
+			<!--定义执行组名，在run中使用 @name 必填，组中组的名称 -->
+			<define name="se3">
+				<!-- 定义test_selenium组中需要测试的方法， @name 方法名必填 -->
+				<include name="test_selenium3" description="调用一组测试"
+					invocation-numbers="1" />
+				<!-- include name="" description="" invocation-numbers="" / -->
+			</define>
+
+			<define name="se2">
+				<!-- 定义test_selenium组中需要测试的方法， @name 方法名必填 -->
+				<include name="test_selenium2" description="调用一组测试"
+					invocation-numbers="1" />
+				<!-- include name="" description="" invocation-numbers="" / -->
+			</define>
+
+			<run>
+				<!--执行指定的组中组，@name必填，与define name一致 -->
+				<include name="se3" />
+				<!-- exclude name="" / -->
+			</run>
+			<dependencies>
+				<!-- 配置依赖 @name 必填，需要依赖其他组的组名，define中设置 @depends-on 必填，被依赖的组名，define中设置，可以有多个，用空格隔开 -->
+				<group name="test_selenium3" depends-on="test_selenium2"></group>
+			</dependencies>
+		</groups>
+
+
+		<classes>
+			<class name="com.xp.test.selenium.TestNGParameter">
+				<!-- test标签里没有parameter标签，再找class标签里面的parameter <parameter name="url" 
+					value="https://www.csdn.com" /> <parameter name="browser" value="Chrome" 
+					/> -->
+				<!-- parameter标签的使用，注意作用域 -->
+				<methods>
+					<parameter name="url" value="https://www.163.com"></parameter>
+					<include name="test_selenium3" description="排除test_selenium2方法"
+						invocation-numbers="2"></include>
+					<exclude name="test_selenium2"></exclude>
+				</methods>
+				<!-- 可以并列多个测试方法 <methods></methods> -->
+			</class>
+		</classes>
+
+		<!-- 包名,根据包packages标签有两种写法，如果package标签下没有内容就 />结束，否则</package> -->
+		<packages>
+			<!-- name均指包名 -->
+			<package name="com.xp.test.selenium" />
+			<!-- 包含include及排除exclude，支持正则name="*.test.*" -->
+		</packages>
+
+	</test>
+	<!-- 可以并列多个测试用例 <test></test> -->
+
+	<!-- 监听器，一般继承ITestListener，生成报告 -->
+	<listeners>
+		<listener class-name="com.xp.test.common.reports.MyExtentTestNgListener" />
+		<listener class-name="org.uncommons.reportng.HTMLReporter" />
+	</listeners>
+
+</suite> 
