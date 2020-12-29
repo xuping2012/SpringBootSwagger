@@ -12,33 +12,47 @@ import org.testng.annotations.Test;
 
 public class TestNGParameter {
 
-	WebDriver driver=null;
-	
-	@Parameters({"url","browser"})
+	WebDriver driver = null;
+
+	@Parameters({ "url", "browser" })
 	@BeforeClass
-	void bf(String url,String browser){
-		if(browser.equals("Chrome")){
-			System.out.println("当前启动的是"+browser+"浏览器!!!");
-			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"/src/test/resources/chromedriver.exe");
-			driver=new ChromeDriver();
+	void bf(String url, String browser) {
+		if (browser.equals("Chrome")) {
+			System.out.println("当前启动的是" + browser + "浏览器!!!");
+			System.setProperty("webdriver.chrome.driver",
+					System.getProperty("user.dir")
+							+ "/src/test/resources/chromedriver.exe");
+			driver = new ChromeDriver();
 			driver.get(url);
 			driver.manage().window().maximize();
 			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		}
 	}
-	
+
 	@Test
-	void test_selenium() throws InterruptedException{
+	void test_selenium3() throws InterruptedException {
 		driver.findElement(By.id("kw")).sendKeys("selenium3");
 		driver.findElement(By.id("su")).click();
 		Thread.sleep(3000);
 	}
-	
-	
+
+	@Test
+	void test_selenium2() throws InterruptedException {
+		driver.findElement(By.id("kw")).sendKeys("selenium2");
+		driver.findElement(By.id("su")).click();
+		Thread.sleep(3000);
+	}
+
+	@Test
+	void test_selenium1() throws InterruptedException {
+		driver.findElement(By.id("kw")).sendKeys("selenium1");
+		driver.findElement(By.id("su")).click();
+		Thread.sleep(3000);
+	}
+
 	@AfterClass
-	void af(){
+	void af() {
 		driver.quit();
 	}
-	
-	
+
 }
