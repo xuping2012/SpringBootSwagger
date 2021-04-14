@@ -27,14 +27,21 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.ChartLocation;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
+/**
+ * 
+ * TODO:直接引用的，拿来即用
+ * 
+ * @file TestNGReporterListener.java
+ */
 public class TestNGReporterListener implements IReporter {
 
+	// 这里自己需要指定报告生成路径
 	private static final String OUTPUT_DIR = "test-output/";
-	private static final String FILE_NAME = "DefindTestNGReporter_index.html";
+	private static final String FILE_NAME = "TestNGReporter_index.html";
 	private ExtentReports extent;
 
 	/**
-	 * 
+	 * 下面这些所有的东西不要乱码，除了一些自己可以修改的，如报告名称等
 	 */
 	public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites,
 			String outputDirectory) {
@@ -128,6 +135,9 @@ public class TestNGReporterListener implements IReporter {
 
 	/**
 	 * 
+	 * @param extenttest
+	 * @param tests
+	 * @param status
 	 */
 	private void buildTestNodes(ExtentTest extenttest, IResultMap tests,
 			Status status) {
@@ -222,7 +232,7 @@ public class TestNGReporterListener implements IReporter {
 		}
 		ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(OUTPUT_DIR
 				+ FILE_NAME);
-		// 解决dns问题
+		// 解决dns问题，配置生成报告样式
 		htmlReporter.config().setResourceCDN(ResourceCDN.EXTENTREPORTS);
 		htmlReporter.config().setDocumentTitle("自动化接口测试报告");
 		htmlReporter.config().setReportName("自动化接口测试报告");

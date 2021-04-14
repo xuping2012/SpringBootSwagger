@@ -22,17 +22,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *
+ * 拿来主义：别找到了，能看懂引用即可；
+ *
+ */
 public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 
 	private static final String REPORTER_ATTR = "extentTestNgReporter";
 	private static final String SUITE_ATTR = "extentTestNgSuite";
+	// aventstack这个类的报告
 	private ExtentReports reporter;
 	private List<String> testRunnerOutput;
 	private Map<String, String> systemInfo;
 	private ExtentHtmlReporter htmlReporter;
 	// 报告文件名称
-	private String MyReportPrefix = "MyDefindTestNGReport_";
-	private String MyEmailReportPrefix = "MyDefindEmailTestNGReport_";
+	private String MyReportPrefix = "TestNGReport_";
+	private String MyEmailReportPrefix = "EmailTestNGReport_";
 	private static ExtentTestNgFormatter instance;
 
 	/**
@@ -41,7 +47,9 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 	public MyExtentTestNgListener() {
 		setInstance(this);
 		testRunnerOutput = new ArrayList<>();
+		// 获取报告路径<包含文件名>
 		String reportPathStr = System.getProperty("reportPath");
+		// 这是文件路径
 		File reportPath;
 
 		try {
@@ -60,18 +68,20 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 		// 获取当前执行时间，生成报告文件
 		Date date = new Date();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-hh-mm");
-
+		// 报告文件名及路径
 		File reportFile = new File(reportPath, MyReportPrefix + df.format(date)
 				+ ".html");
 		File emailReportFile = new File(reportPath, MyEmailReportPrefix
 				+ df.format(date) + ".html");
-
 		htmlReporter = new ExtentHtmlReporter(reportFile);
 		EmailReporter emailReporter = new EmailReporter(emailReportFile);
 
+		// 创建报告对象
 		reporter = new ExtentReports();
 		// 如果cdn.rawgit.com访问不了，可以设置为：ResourceCDN.EXTENTREPORTS或者ResourceCDN.GITHUB
+		// 这里加入了报告的样式
 		htmlReporter.config().setResourceCDN(ResourceCDN.EXTENTREPORTS);
+
 		reporter.attachReporter(htmlReporter, emailReporter);
 	}
 
@@ -212,9 +222,6 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 		}
 	}
 
-	/**
- * 
- */
 	public void beforeInvocation(IInvokedMethod iInvokedMethod,
 			ITestResult iTestResult) {
 		if (iInvokedMethod.isTestMethod()) {

@@ -3,11 +3,12 @@ package com.xp.test.common.reports;
 import com.aventstack.extentreports.ExtentTest;
 
 /**
- * @Auther: xup
+ * @Auther: Joe-Tester
  * @Date: 2018/6/27 17:18
  * @Description:
  */
 public class MyReporter {
+	
 	public static ExtentTest report;
 	public static String testName;
 	
