@@ -1,6 +1,7 @@
 package com.xp.test.common.reports;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
@@ -37,7 +38,8 @@ public class TestNGReporterListener implements IReporter {
 
 	// 这里自己需要指定报告生成路径
 	private static final String OUTPUT_DIR = "test-output/";
-	private static final String FILE_NAME = "TestNGReporter_index.html";
+	private static final String FILE_NAME = "TestNGIReporter_";
+	// 创建实现报告对象
 	private ExtentReports extent;
 
 	/**
@@ -134,6 +136,7 @@ public class TestNGReporterListener implements IReporter {
 	}
 
 	/**
+	 * 构建测试节点
 	 * 
 	 * @param extenttest
 	 * @param tests
@@ -227,11 +230,18 @@ public class TestNGReporterListener implements IReporter {
 		// TODO Auto-generated method stub
 		// 文件不存在进行创建
 		File reportDir = new File(OUTPUT_DIR);
+
 		if (!reportDir.exists() && !reportDir.isDirectory()) {
 			reportDir.mkdir();
 		}
+
+		// 获取当前执行时间，生成报告文件
+		Date date = new Date();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-hh-mm");
+		// 报告名称及输出路径
 		ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(OUTPUT_DIR
-				+ FILE_NAME);
+				+ df.format(date) + FILE_NAME + ".html");
+
 		// 解决dns问题，配置生成报告样式
 		htmlReporter.config().setResourceCDN(ResourceCDN.EXTENTREPORTS);
 		htmlReporter.config().setDocumentTitle("自动化接口测试报告");

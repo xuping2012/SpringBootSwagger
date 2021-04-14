@@ -1,5 +1,21 @@
 package com.xp.test.common.reports;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.testng.IInvokedMethod;
+import org.testng.ISuite;
+import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.Reporter;
+import org.testng.TestNG;
+import org.testng.xml.XmlSuite;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.ResourceCDN;
@@ -11,24 +27,17 @@ import com.vimalselvam.testng.NodeName;
 import com.vimalselvam.testng.SystemInfo;
 import com.vimalselvam.testng.listener.ExtentTestNgFormatter;
 
-import org.testng.*;
-import org.testng.xml.XmlSuite;
-
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 /**
+ * 
+ * TODO:拿来主义：别找了，能看懂引用即可；
  *
- * 拿来主义：别找到了，能看懂引用即可；
- *
+ * @author Joe-Tester
+ * @time 2021年4月14日
+ * @file MyExtentTestNgListener.java
  */
 public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 
+	// 报告目录
 	private static final String REPORTER_ATTR = "extentTestNgReporter";
 	private static final String SUITE_ATTR = "extentTestNgSuite";
 	// aventstack这个类的报告
@@ -37,7 +46,7 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 	private Map<String, String> systemInfo;
 	private ExtentHtmlReporter htmlReporter;
 	// 报告文件名称
-	private String MyReportPrefix = "TestNGReport_";
+	private String MyReportPrefix = "TestNGExtentReport_";
 	private String MyEmailReportPrefix = "EmailTestNGReport_";
 	private static ExtentTestNgFormatter instance;
 
@@ -47,17 +56,19 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 	public MyExtentTestNgListener() {
 		setInstance(this);
 		testRunnerOutput = new ArrayList<>();
-		// 获取报告路径<包含文件名>
+		// 获取报告路径<包含文件名>，这个文件变量没有配置
 		String reportPathStr = System.getProperty("reportPath");
+
 		// 这是文件路径
 		File reportPath;
 
 		try {
 			reportPath = new File(reportPathStr);
 		} catch (NullPointerException e) {
+			// testng报告默认输出目录
 			reportPath = new File(TestNG.DEFAULT_OUTPUTDIR);
 		}
-
+		// 判断目录是否存在
 		if (!reportPath.exists()) {
 			if (!reportPath.mkdirs()) {
 				throw new RuntimeException(
@@ -73,6 +84,7 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 				+ ".html");
 		File emailReportFile = new File(reportPath, MyEmailReportPrefix
 				+ df.format(date) + ".html");
+		// 报告分详细报告及邮件报告
 		htmlReporter = new ExtentHtmlReporter(reportFile);
 		EmailReporter emailReporter = new EmailReporter(emailReportFile);
 
@@ -81,7 +93,6 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 		// 如果cdn.rawgit.com访问不了，可以设置为：ResourceCDN.EXTENTREPORTS或者ResourceCDN.GITHUB
 		// 这里加入了报告的样式
 		htmlReporter.config().setResourceCDN(ResourceCDN.EXTENTREPORTS);
-
 		reporter.attachReporter(htmlReporter, emailReporter);
 	}
 
@@ -94,6 +105,11 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 		return instance;
 	}
 
+	/**
+	 * Sets the instance of the @link ExtentTestNgFormatter}
+	 * 
+	 * @param formatter
+	 */
 	private static void setInstance(ExtentTestNgFormatter formatter) {
 		instance = formatter;
 	}
@@ -118,9 +134,10 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 	}
 
 	/**
-	 * 
+	 * 开始测试
 	 */
 	public void onStart(ISuite iSuite) {
+		// 读取testng.xml测试套件
 		if (iSuite.getXmlSuite().getTests().size() > 0) {
 			ExtentTest suite = reporter.createTest(iSuite.getName());
 			String configFile = iSuite.getParameter("report.config");
@@ -174,29 +191,44 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 	public void onFinish(ISuite iSuite) {
 	}
 
+	/**
+	 * 开始测试
+	 */
 	public void onTestStart(ITestResult iTestResult) {
 		MyReporter.setTestName(iTestResult.getName());
 	}
 
+	/**
+	 * 测试通过
+	 */
 	public void onTestSuccess(ITestResult iTestResult) {
 
 	}
 
+	/**
+	 * 测试失败
+	 */
 	public void onTestFailure(ITestResult iTestResult) {
 
 	}
 
+	/**
+	 * 取消测试
+	 */
 	public void onTestSkipped(ITestResult iTestResult) {
 
 	}
 
+	/**
+	 * 测试结果失败不再统计成功百分比
+	 */
 	public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
 
 	}
 
 	/**
- * 
- */
+	 * 开始测试
+	 */
 	public void onStart(ITestContext iTestContext) {
 		ISuite iSuite = iTestContext.getSuite();
 		ExtentTest suite = (ExtentTest) iSuite.getAttribute(SUITE_ATTR);
@@ -207,9 +239,8 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 	}
 
 	/**
-	 * 
- * 
- */
+	 * 完成测试，结果判断
+	 */
 	public void onFinish(ITestContext iTestContext) {
 		ExtentTest testContext = (ExtentTest) iTestContext
 				.getAttribute("testContext");
@@ -222,6 +253,9 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 		}
 	}
 
+	/**
+	 * 调用之前
+	 */
 	public void beforeInvocation(IInvokedMethod iInvokedMethod,
 			ITestResult iTestResult) {
 		if (iInvokedMethod.isTestMethod()) {
@@ -309,6 +343,9 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 		testRunnerOutput.add(message);
 	}
 
+	/**
+	 * 生成报告
+	 */
 	public void generateReport(List<XmlSuite> list, List<ISuite> list1, String s) {
 		if (getSystemInfo() != null) {
 			for (Map.Entry<String, String> entry : getSystemInfo().entrySet()) {
@@ -355,6 +392,11 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 		addNewNode(SUITE_ATTR, nodeName);
 	}
 
+	/**
+	 * 
+	 * @param parent
+	 * @param nodeName
+	 */
 	private void addNewNode(String parent, String nodeName) {
 		ITestResult result = Reporter.getCurrentTestResult();
 		Preconditions.checkState(result != null);
