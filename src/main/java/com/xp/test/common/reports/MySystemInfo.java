@@ -11,25 +11,30 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * @Auther: xup
+ * @Auther: joe-tester
  * @Date: 2018/6/7 10:54
  * @Description:
  */
 public class MySystemInfo implements SystemInfo {
 
+	/**
+	 * 继承SystemInfo，重载父类的方法，系统会自动识别
+	 */
 	@Override
 	public Map<String, String> getSystemInfo() {
+		// 读取配置文件信息
 		Properties properties = new Properties();
 		InputStream inputStream = null;
 		try {
 			inputStream = new FileInputStream(System.getProperty("user.dir")
-					+ "/src/main/resources/env.properties");
+					+ "/src/test/resources/env.properties");
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
 		Map<String, String> systemInfo = new HashMap<>();
+		// 设置系统的变量信息
 		try {
 			properties.load(inputStream);
 			systemInfo.put("Environment:",

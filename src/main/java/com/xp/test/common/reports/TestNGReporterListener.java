@@ -30,7 +30,7 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 
 /**
  * 
- * TODO:直接引用的，拿来即用
+ * TODO:直接引拿来即用，这个报告虽然是按照美观的路线去发展，但是还是不够完整
  * 
  * @file TestNGReporterListener.java
  */
@@ -255,6 +255,7 @@ public class TestNGReporterListener implements IReporter {
 		extent = new ExtentReports();
 		extent.attachReporter(htmlReporter);
 		extent.setReportUsesManualConfiguration(true);
+
 	}
 
 }

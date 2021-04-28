@@ -29,7 +29,7 @@ import com.vimalselvam.testng.listener.ExtentTestNgFormatter;
 
 /**
  * 
- * TODO:拿来主义：别找了，能看懂引用即可；
+ * TODO:拿来主义
  *
  * @author Joe-Tester
  * @time 2021年4月14日
@@ -45,6 +45,8 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 	private List<String> testRunnerOutput;
 	private Map<String, String> systemInfo;
 	private ExtentHtmlReporter htmlReporter;
+	// 环境信息
+	private MySystemInfo mySystemInfo;
 	// 报告文件名称
 	private String MyReportPrefix = "TestNGExtentReport_";
 	private String MyEmailReportPrefix = "EmailTestNGReport_";
@@ -55,6 +57,10 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 	 */
 	public MyExtentTestNgListener() {
 		setInstance(this);
+		// 报告加入环境信息
+		mySystemInfo = new MySystemInfo();
+		systemInfo = mySystemInfo.getSystemInfo();
+
 		testRunnerOutput = new ArrayList<>();
 		// 获取报告路径<包含文件名>，这个文件变量没有配置
 		String reportPathStr = System.getProperty("reportPath");
@@ -94,6 +100,7 @@ public class MyExtentTestNgListener extends ExtentTestNgFormatter {
 		// 这里加入了报告的样式
 		htmlReporter.config().setResourceCDN(ResourceCDN.EXTENTREPORTS);
 		reporter.attachReporter(htmlReporter, emailReporter);
+
 	}
 
 	/**
