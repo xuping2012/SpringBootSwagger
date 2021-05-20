@@ -46,7 +46,7 @@ public class LoginController {
 	 * @param input
 	 * @return
 	 */
-	@ApiOperation(value = "登录1")
+	@ApiOperation(value = "登录")
 	@PostMapping("/login_mobile")
 	public ReturnValue<?> Login(
 			@RequestBody LoginParam.getTokenByMobileInput input) {
@@ -106,7 +106,7 @@ public class LoginController {
 	 * @return
 	 */
 	@GetMapping(value = "/loginout/{id}")
-	@ApiOperation(value = "退出接口")
+	@ApiOperation(value = "登出")
 	public Result loginout(@PathVariable(value = "id") int id,
 			@RequestParam(value = "desc") String desc) {
 		return new Result(id, desc);
