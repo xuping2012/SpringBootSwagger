@@ -1,0 +1,3 @@
+﻿case_id,case_name,case_url,case_param,expected
+case_001,登录,/api/login,"{""email"":""eve.holt@reqres.in"",""password"":""cityslicka""}",200
+case_002,登录,/api/login,"{""email"":""peter@klaven""}",400

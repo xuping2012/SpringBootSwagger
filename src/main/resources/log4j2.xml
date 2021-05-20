@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Properties>
+		<Property name="basePath">./Log</Property>
+	</Properties>
+	<Appenders>
+		<RollingFile name="File" fileName="${basePath}/testng.log"
+			filePattern="${basePath}/testng-%d{yyyy-MM-dd}.log">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %c{2} -%msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+				<SizeBasedTriggeringPolicy size="100 KB" />
+			</Policies>
+		</RollingFile>
+		<Console name="Console">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %c{2} -%msg%n" />
+
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Logger name="log4jtutorial" level="info" additivity="false">
+			<AppenderRef ref="File" />
+		</Logger>
+		<Logger name="log4j" level="debug" additivity="false">
+			<AppenderRef ref="File" />
+		</Logger>
+		<Root level="trace">
+			<AppenderRef ref="File" />
+		</Root>
+	</Loggers>
+</Configuration>

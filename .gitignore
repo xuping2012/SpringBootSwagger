@@ -27,7 +27,6 @@ hs_err_pid*
 # dir，create file or floder
 .idea/
 .settings/
-resources/
 test-output/
 target/
 Log/
