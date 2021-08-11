@@ -3,6 +3,11 @@ package com.xp.test.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +25,6 @@ import com.xp.test.common.returnValue.ReturnValue;
 import com.xp.test.common.utils.ValidatorUtils;
 import com.xp.test.controller.param.LoginParam;
 import com.xp.test.handler.LoginParamHandler;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Resource;
 
 @RestController
 @RequestMapping(value = "/api")

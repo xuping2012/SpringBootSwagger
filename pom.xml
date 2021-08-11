@@ -62,7 +62,7 @@
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
-			<version>2.9.2</version>
+			<version>3.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>io.swagger</groupId>
@@ -77,13 +77,27 @@
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
-			<version>2.9.2</version>
+			<version>3.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.xiaoymin</groupId>
 			<artifactId>swagger-bootstrap-ui</artifactId>
 			<version>1.8.7</version>
 		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter -->
+		<dependency>
+			<groupId>com.github.xiaoymin</groupId>
+			<artifactId>knife4j-spring-boot-starter</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+
 
 		<!-- http -->
 		<dependency>
@@ -126,6 +140,8 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+
 
 		<!-- 参数校验器 -->
 		<dependency>
