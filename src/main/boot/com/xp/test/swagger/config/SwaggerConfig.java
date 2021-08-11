@@ -1,4 +1,4 @@
-package com.xp.test.common.config;
+package com.xp.test.swagger.config;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.models.security.SecurityScheme;

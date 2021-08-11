@@ -1,4 +1,4 @@
-package com.xp.test.common.config;
+package com.xp.test.swagger.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
