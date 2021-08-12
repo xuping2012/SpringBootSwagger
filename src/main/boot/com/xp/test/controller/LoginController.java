@@ -1,7 +1,9 @@
 package com.xp.test.controller;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +30,7 @@ import com.xp.test.handler.LoginParamHandler;
 
 @RestController
 @RequestMapping(value = "/api")
-@Api(tags = "用户相关接口")
+@Tag(description = "用户相关接口", name = "用户接口")
 public class LoginController {
 
 	private static final Logger log = LogManager
@@ -46,17 +48,14 @@ public class LoginController {
 	 * @param input
 	 * @return
 	 */
-	@ApiOperation(value = "登录")
+	@Operation(method = "POST", tags = { "用户接口" })
 	@PostMapping("/login_mobile")
 	public ReturnValue<?> Login(
 			@RequestBody LoginParam.getTokenByMobileInput input) {
-
 		// 校验请求参数
 		ValidatorUtils.validateEntity(input);
-
 		// 处理接口请求
 		ReturnValue<?> returnValue = loginParamHandler.getToken(input);
-
 		return returnValue;
 	}
 
@@ -65,6 +64,7 @@ public class LoginController {
 	 * 
 	 * @return
 	 */
+	@Parameters(value = {})
 	@RequestMapping(value = "/helloworld", method = RequestMethod.GET)
 	@ApiOperation(value = "打个招呼")
 	public Result helloword() {
@@ -94,7 +94,7 @@ public class LoginController {
 	@PostMapping(value = "/str_to_json")
 	@ApiOperation(value = "直接通过字符串解析成json对象返回")
 	public Object objectA() {
-		String res = "{\"1\":{\"name\":\"张三\",\"age\":10},\"2\":{\"name\":\"李四\",\"age\":10},\"3\":{\"name\":\"王五\",\"age\":10}}";
+		String res = "{\"first\":{\"name\":\"张三\",\"age\":10},\"second\":{\"name\":\"李四\",\"age\":10},\"third\":{\"name\":\"王五\",\"age\":10}}";
 		// String s = JSONArray.parseObject(res).getClass().toString();
 		// System.out.println("数据类型：" + s);
 		return JSONArray.parseObject(res);

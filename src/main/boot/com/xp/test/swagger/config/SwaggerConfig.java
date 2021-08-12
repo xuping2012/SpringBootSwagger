@@ -8,8 +8,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import lombok.RequiredArgsConstructor;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -28,14 +26,13 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
-
-@RequiredArgsConstructor
 @EnableOpenApi
 @Configuration
 public class SwaggerConfig {
 
 	@Bean
 	public Docket createRestApi() {
+
 		// DocumentationType.SWAGGER_2
 		return new Docket(DocumentationType.OAS_30)
 				.apiInfo(apiInfo())
@@ -85,5 +82,4 @@ public class SwaggerConfig {
 		return Collections.singletonList(new SecurityReference("token",
 				authorizationScopes));
 	}
-
 }

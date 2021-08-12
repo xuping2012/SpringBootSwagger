@@ -2,6 +2,7 @@ package com.xp.test.controller.param;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -12,7 +13,7 @@ import org.hibernate.validator.constraints.Length;
 
 public class LoginParam {
 
-	@ApiModel(value = "入参")
+	@Schema(name = "登录入参")
 	@Data
 	public static class getTokenByMobileInput {
 
