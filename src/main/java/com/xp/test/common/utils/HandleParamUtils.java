@@ -202,4 +202,24 @@ public class HandleParamUtils {
 		return newContent.toString();
 	}
 
+	public static void main(String[] args) {
+		// 不定长字符串传参，拼接成数组返回，用来储存数据
+		List<String> st = HandleParamUtils.strToList("1", "3", "44", "3");
+		System.out.println("获取数组：" + st);
+		for (int i = 0; i < st.size(); i++) {
+			System.out.println("遍历数组取值：" + st.get(i));
+		}
+		System.out.println("\n***************************\n");
+		// 在restful接口风格，接口响应为json对象，在jmeter中获取的是json对象的字符串，需要转成map对象
+		String ss = "{\"a\":\"1\",\"b\":\"aa\"}";
+		Map<String, Object> n = HandleParamUtils.json2map(ss);
+		System.out.println("获取map对象：" + n);
+		System.out.println("获取key：a的值：" + n.get("a"));
+
+		for (String k : n.keySet()) {
+			System.out.println("遍历map对象获取key的值：" + n.get(k));
+		}
+
+	}
+
 }
