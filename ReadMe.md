@@ -1,3 +1,65 @@
+# SpringBootSwagger
+
+![Java Version](https://img.shields.io/badge/java-8+-blue)
+![Spring Boot](https://img.shields.io/badge/spring%20boot-2.x-green)
+![License](https://img.shields.io/badge/license-MIT-green)
+
+## 项目简介
+
+`SpringBootSwagger` 是一个基于 Spring Boot 的 Mock Server 项目，集成 Swagger UI 接口文档，用于后端接口测试和前端联调。
+
+## 核心功能
+
+- 🚀 **Mock Server**: 提供模拟接口服务
+- 📄 **Swagger UI**: 自动生成接口文档
+- 🧪 **接口测试**: 支持接口测试依赖
+- 🔧 **配置灵活**: 支持多种配置方式
+
+## 技术栈
+
+- **Java**: 8+
+- **Spring Boot**: 2.x
+- **Swagger UI**: API 文档
+- **Maven**: 依赖管理
+
+## 快速开始
+
+```bash
+# 编译项目
+mvn clean compile
+
+# 运行项目
+mvn spring-boot:run
+```
+
+## 项目结构
+
+```
+SpringBootSwagger/
+├── src/main/java/
+│   └── com/example/app/
+│       ├── controller/     # REST 控制器
+│       ├── service/        # 业务服务
+│       ├── model/          # 数据模型
+│       └── Application.java # 启动类
+├── src/main/resources/
+│   ├── application.yml     # 应用配置
+│   └── static/             # 静态资源
+├── pom.xml                 # Maven 配置
+└── README.md
+```
+
+## 访问地址
+
+- **应用首页**: http://localhost:8080
+- **Swagger UI**: http://localhost:8080/swagger-ui.html
+
+## 使用场景
+
+1. **前端联调**: 提供 Mock 数据进行前端开发
+2. **接口测试**: 验证接口设计和数据格式
+3. **文档生成**: 自动生成 API 文档
+
 #### eclipse创建SpringBoot项目
 - 没有找到支持快速创建SpringBoot项目的STS插件
 - 使用了lombok插件，免去字段的setter和getter方法
@@ -40,3 +102,7 @@
 - pom添加reportng依赖，覆盖原来的testng的报告
 
 #### 接口自动化测试及Mock平台
+
+## 许可证
+
+MIT License
